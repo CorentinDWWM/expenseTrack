@@ -8,6 +8,7 @@ export async function addAnExpense(values, id) {
       headers: {
         "Content-type": "application/json",
       },
+      credentials: "include",
     });
     const addedExpense = await response.json();
     return addedExpense;
@@ -24,12 +25,4 @@ export async function getExpensesByUser(id) {
   } catch (error) {
     console.log(error);
   }
-}
-
-export async function deleteAnExpense(id) {
-  try {
-    await fetch(`${BASE_URL}/expenses/${id}`, {
-      method: "DELETE",
-    });
-  } catch (error) {}
 }

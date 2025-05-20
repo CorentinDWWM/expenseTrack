@@ -11,6 +11,7 @@ export async function signin(values) {
       credentials: "include",
     });
     const userConnected = await response.json();
+    // soit on récupère un utilisateur, soit un message
     return userConnected;
   } catch (error) {
     console.log(error);
@@ -27,17 +28,21 @@ export async function signup(values) {
       },
     });
     const message = await response.json();
+    console.log(message);
+
     return message;
   } catch (error) {
     console.log(error);
   }
 }
 
+// méthodes update (même système que requête POST, seul le verbe change)
+
 export async function update(values) {
   const user = {
     _id: values._id,
-    username: values.username,
     email: values.email,
+    username: values.username,
   };
   try {
     const response = await fetch(`${BASE_URL}/user`, {
@@ -47,15 +52,15 @@ export async function update(values) {
         "Content-type": "application/json",
       },
     });
-    const newUser = await response.json();
-    return newUser;
+    const updatedUser = await response.json();
+
+    return updatedUser;
   } catch (error) {
     console.log(error);
   }
 }
 
 export async function updateAvatar(values) {
-  console.log(values);
   try {
     const response = await fetch(`${BASE_URL}/user/avatar`, {
       method: "PUT",
@@ -64,8 +69,9 @@ export async function updateAvatar(values) {
         "Content-type": "application/json",
       },
     });
-    const newUser = await response.json();
-    return newUser;
+    const updatedUserAvatar = await response.json();
+
+    return updatedUserAvatar;
   } catch (error) {
     console.log(error);
   }
@@ -73,7 +79,7 @@ export async function updateAvatar(values) {
 
 export async function getCurrentUser() {
   try {
-    const response = await fetch(`${BASE_URL}/user/current`, {
+    const response = await fetch(`${BASE_URL}/user/currentUser`, {
       method: "GET",
       credentials: "include",
     });
@@ -95,25 +101,25 @@ export async function signOut() {
 }
 
 export async function forgotPassword(values) {
-  console.log(values);
+  // console.log(values); { email: "john@test.fr"}
   try {
-    const response = await fetch(`${BASE_URL}/user/forgot`, {
+    const response = await fetch(`${BASE_URL}/user/forgotPassword`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
     });
+    // retourne la réponse fournie par le serveur
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 
 export async function resetPassword(values) {
-  console.log(values);
   try {
-    const response = await fetch(`${BASE_URL}/user/reset`, {
+    const response = await fetch(`${BASE_URL}/user/resetPassword`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -122,21 +128,22 @@ export async function resetPassword(values) {
     });
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 
 export async function changePassword(values) {
   try {
-    const response = await fetch(`${BASE_URL}/user/change`, {
+    const response = await fetch(`${BASE_URL}/user/changePassword`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(values),
+      credentials: "include",
     });
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
