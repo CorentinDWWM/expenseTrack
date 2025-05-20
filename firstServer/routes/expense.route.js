@@ -1,17 +1,15 @@
-const router = require("express").Router();
 const {
   addExpense,
-  getExpenseByUser,
-  deleteAnExpense,
+  getExpensesByUser,
 } = require("../controllers/expense.controller");
 const { authentification } = require("../middlewares/authMiddleware");
 const { validateMiddleware } = require("../middlewares/validateMiddleware");
 
-router.post("/", addExpense);
+const router = require("express").Router();
 
-router.get("/:id", authentification, validateMiddleware, getExpenseByUser);
+router.post("/", authentification, validateMiddleware, addExpense);
 
-router.delete("/:id", deleteAnExpense);
+router.get("/:id", getExpensesByUser);
 
 module.exports = router;
 

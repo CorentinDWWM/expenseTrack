@@ -1,13 +1,12 @@
 const {
-  getAllUsers,
-  signUp,
-  signIn,
+  signup,
+  signin,
   updateUser,
   updateAvatar,
   currentUser,
   logoutUser,
   verifyMail,
-  forgotPassword,
+  forgotMyPassword,
   resetPassword,
   changePassword,
 } = require("../controllers/user.controller");
@@ -16,25 +15,25 @@ const { loginLimiter } = require("../middlewares/rateLimitMiddleware");
 
 const router = require("express").Router();
 
-router.get("/", getAllUsers);
+// POST
 
-router.get("/verifyMail/:token", verifyMail);
+router.post("/", signup);
+router.post("/login", loginLimiter, signin);
+router.post("/forgotPassword", forgotMyPassword);
+router.post("/resetPassword", resetPassword);
+router.post("/changePassword", authentification, changePassword);
 
-router.post("/", signUp);
-
-router.post("/login", loginLimiter, signIn);
-
-router.post("/forgot", forgotPassword);
-
-router.post("/reset", resetPassword);
-
-router.post("/change", authentification, changePassword);
+// UPDATE
 
 router.put("/", authentification, updateUser);
-
 router.put("/avatar", authentification, updateAvatar);
 
-router.get("/current", authentification, currentUser);
+// GET
+
+router.get("/currentUser", authentification, currentUser);
+router.get("/verifyMail/:token", verifyMail);
+
+// DELETE
 
 router.delete("/deleteToken", authentification, logoutUser);
 
