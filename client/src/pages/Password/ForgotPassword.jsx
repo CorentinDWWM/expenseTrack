@@ -34,16 +34,11 @@ export default function ForgotPassword() {
   });
 
   const submit = async (values) => {
-    console.log(values);
+    // console.log(values);
     const response = await forgotPassword(values);
     console.log(response);
-
-    if (response.messageOk) {
-      toast.success(response.messageOk);
-      reset(defaultValues);
-    } else {
-      toast.error(response.message);
-    }
+    toast.success(response.message);
+    reset(defaultValues);
   };
   return (
     <div className="flex-1 flex items-center justify-center">
