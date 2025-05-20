@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ExpanseContext } from "../../context/ExpanseContext";
 import { AuthContext } from "../../context/AuthContext";
-import { getExpensesByUser } from "../../apis/expense.api";
+import { getExpensesByUser } from "../../apis/expense";
 
 export default function ExpenseProvider({ children }) {
   const [expenses, setExpenses] = useState([]);
