@@ -4,10 +4,12 @@ const {
   getExpenseByUser,
   deleteAnExpense,
 } = require("../controllers/expense.controller");
+const { authentification } = require("../middlewares/authMiddleware");
+const { validateMiddleware } = require("../middlewares/validateMiddleware");
 
 router.post("/", addExpense);
 
-router.get("/:id", getExpenseByUser);
+router.get("/:id", authentification, validateMiddleware, getExpenseByUser);
 
 router.delete("/:id", deleteAnExpense);
 

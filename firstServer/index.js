@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://expensetracktest.onrender.com",
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type"],
