@@ -41,7 +41,7 @@ const sendInvalidEmailToken = async (email) => {
   await transporter.sendMail(mailOptions);
 };
 
-const sendForgotPassword = async (email, token) => {
+const sendForgotPasswordEmail = async (email, token) => {
   const resetLink = `${process.env.CLIENT_URL}/reset/${token}`;
   const mailOptions = {
     from: process.env.EMAIL_USER,
@@ -53,7 +53,7 @@ const sendForgotPassword = async (email, token) => {
   await transporter.sendMail(mailOptions);
 };
 
-const sendModifyPassword = async (email) => {
+const validateNewPassword = async (email) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
@@ -68,6 +68,6 @@ module.exports = {
   sendConfirmationEmail,
   sendValidationAccount,
   sendInvalidEmailToken,
-  sendForgotPassword,
-  sendModifyPassword,
+  sendForgotPasswordEmail,
+  validateNewPassword,
 };
