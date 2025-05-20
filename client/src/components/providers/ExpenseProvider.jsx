@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ExpanseContext } from "../../context/ExpanseContext";
 import { AuthContext } from "../../context/AuthContext";
-import { deleteAnExpense, getExpensesByUser } from "../../apis/expense";
+import { getExpensesByUser } from "../../apis/expense.api";
 
 export default function ExpenseProvider({ children }) {
   const [expenses, setExpenses] = useState([]);
@@ -27,10 +27,9 @@ export default function ExpenseProvider({ children }) {
     setExpenses([...expenses, expense]);
   };
 
-  const deleteExpense = async (id) => {
-    setExpenses(expenses.filter((exp) => exp._id !== id));
-    const expenseToDelete = expenses.find((exp) => exp._id === id);
-    await deleteAnExpense(expenseToDelete._id);
+  const deleteExpense = (data) => {
+    console.log(data);
+    setExpenses(expenses.filter((exp) => exp.description !== data));
   };
   return (
     <ExpanseContext.Provider
