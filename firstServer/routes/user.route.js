@@ -11,14 +11,14 @@ const {
   changePassword,
 } = require("../controllers/user.controller");
 const { authentification } = require("../middlewares/authMiddleware");
-const { loginLimiter } = require("../middlewares/rateLimitMiddleware");
+// const { loginLimiter } = require("../middlewares/rateLimitMiddleware");
 
 const router = require("express").Router();
 
 // POST
 
 router.post("/", signup);
-router.post("/login", loginLimiter, signin);
+router.post("/login", signin);
 router.post("/forgotPassword", forgotMyPassword);
 router.post("/resetPassword", resetPassword);
 router.post("/changePassword", authentification, changePassword);
